@@ -1,7 +1,6 @@
 node_modules/
 .expo/
 dist/
-npm-debug.*
 *.jks
 *.p8
 *.p12
@@ -12,3 +11,54 @@ web-build/
 
 # macOS
 .DS_Store
+
+# Ignore Android and iOS build directories
+android/
+ios/
+
+# Ignore logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore Gradle and Android Studio files
+.gradle/
+local.properties
+.idea/
+
+# Ignore Xcode files
+*.xcworkspace/
+*.xcuserdatad/
+*.xcuserstate
+ios/Pods/
+ios/Podfile.lock
+
+# Ignore Android app signing files
+android/app/keystore*
+
+# Ignore macOS files
+.DS_Store
+
+# Ignore IDE project files (e.g., Visual Studio Code)
+.vscode/
+
+# Ignore fastlane configuration files
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Ignore test snapshots
+__image_snapshots__
+
+# Ignore generated files (e.g., react-native-codegen)
+Libraries/
+Generated/
+ReactAndroid/
+
+# Ignore Metro Bundler cache
+metro-cache/
+
+# Ignore Jest coverage reports
+coverage/
