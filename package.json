@@ -21,6 +21,7 @@
     "expo-status-bar": "~1.4.2",
     "firebase": "^9.22.1",
     "firebase-tools": "^12.2.1",
+    "lottie-react-native": "5.1.4",
     "moment": "^2.29.4",
     "moti": "^0.25.3",
     "react": "18.1.0",

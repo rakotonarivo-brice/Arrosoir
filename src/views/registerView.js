@@ -95,7 +95,7 @@ const RegisterView = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../images/register.png")}
+        source={require("../assets/images/register.png")}
         style={{ width: width, height: isTyping ? 0 : height / 4.5 }}
       />
       <Text style={CommercialTitleSize}>Créez votre compte</Text>

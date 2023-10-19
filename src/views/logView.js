@@ -63,7 +63,7 @@ export default function LogView({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../images/login.png")}
+        source={require("../assets/images/login.png")}
         style={{ width: width, height: isTyping ? 0 : height / 3 }}
       />
       <View>

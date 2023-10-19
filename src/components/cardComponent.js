@@ -44,18 +44,18 @@ const CardComponent = (props) => {
 
   const iconPath = () => {
     if (props.localisation === "Extérieur") {
-      return require("../icons/park.png");
+      return require("../assets/icons/park.png");
     } else if (props.localisation === "Salle de bain") {
-      return require("../icons/bath.png");
+      return require("../assets/icons/bath.png");
     } else if (props.localisation === "Chambre") {
-      return require("../icons/double-bed.png");
+      return require("../assets/icons/double-bed.png");
     } else if (props.localisation === "Cuisine") {
-      return require("../icons/kitchen-set.png");
+      return require("../assets/icons/kitchen-set.png");
     } else if (props.localisation === "Toilettes") {
-      return require("../icons/toilet.png");
+      return require("../assets/icons/toilet.png");
     } else if (props.localisation === "Salon") {
-      return require("../icons/living-room.png");
-    } else return require("../icons/living-room.png");
+      return require("../assets/icons/living-room.png");
+    } else return require("../assets/icons/living-room.png");
   };
 
   function displaynextWatering() {
