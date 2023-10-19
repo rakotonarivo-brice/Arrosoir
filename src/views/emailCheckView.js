@@ -9,7 +9,7 @@ const EmailCheckView = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../images/mailCheck.png")}
+        source={require("../assets/images/mailCheck.png")}
         style={{ width: width, height: height / 3 }}
       />
       <Text style={CommercialTitleSize}>Vérifiez votre boite mail</Text>

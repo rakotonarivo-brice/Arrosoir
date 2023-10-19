@@ -203,7 +203,7 @@ const DashboardView = () => {
             onPress={() => setCurrentLocalisation("Extérieur")}
           >
             <Image
-              source={require("../icons/park.png")}
+              source={require("../assets/icons/park.png")}
               style={[
                 styles.cardImage,
                 {
@@ -234,7 +234,7 @@ const DashboardView = () => {
             onPress={() => setCurrentLocalisation("Salle de bain")}
           >
             <Image
-              source={require("../icons/bath.png")}
+              source={require("../assets/icons/bath.png")}
               style={[
                 styles.cardImage,
                 {
@@ -265,7 +265,7 @@ const DashboardView = () => {
             onPress={() => setCurrentLocalisation("Chambre")}
           >
             <Image
-              source={require("../icons/double-bed.png")}
+              source={require("../assets/icons/double-bed.png")}
               style={[
                 styles.cardImage,
                 {
@@ -296,7 +296,7 @@ const DashboardView = () => {
             onPress={() => setCurrentLocalisation("Cuisine")}
           >
             <Image
-              source={require("../icons/kitchen-set.png")}
+              source={require("../assets/icons/kitchen-set.png")}
               style={[
                 styles.cardImage,
                 {
@@ -327,7 +327,7 @@ const DashboardView = () => {
             onPress={() => setCurrentLocalisation("Toilettes")}
           >
             <Image
-              source={require("../icons/toilet.png")}
+              source={require("../assets/icons/toilet.png")}
               style={[
                 styles.cardImage,
                 {
@@ -358,7 +358,7 @@ const DashboardView = () => {
             onPress={() => setCurrentLocalisation("Salon")}
           >
             <Image
-              source={require("../icons/living-room.png")}
+              source={require("../assets/icons/living-room.png")}
               style={[
                 styles.cardImage,
                 {
