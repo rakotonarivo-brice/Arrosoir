@@ -3,10 +3,9 @@ import {
   TextInput,
   View,
   Dimensions,
-  Pressable,
+  TouchableOpacity,
   Text,
   Image,
-  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ColorPalette } from "../styles/colors";
@@ -26,7 +25,6 @@ const { width, height } = Dimensions.get("screen");
 const MenuComponent = (props) => {
   const [name, setName] = useState("");
   const [localisation, setLocalisation] = useState("");
-  const [onSelected, setOnSelected] = useState(false);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [image, setImage] = useState(null);
   const [range, setRange] = useState("50%");
@@ -178,8 +176,8 @@ const MenuComponent = (props) => {
           <Image
             source={require("../icons/park.png")}
             style={{
-              width: 45,
-              height: 45,
+              width: height < 800 ? 30 : 45,
+              height: height < 800 ? 30 : 45,
               tintColor: localisation === "Extérieur" ? "#fff" : "#000000",
             }}
           />
@@ -194,27 +192,29 @@ const MenuComponent = (props) => {
             styles.localisationBtn,
             {
               backgroundColor:
-                localisation === "Salle de bain" ? ColorPalette.greenify : "#fff",
+                localisation === "Salle d'eau"
+                  ? ColorPalette.greenify
+                  : "#fff",
             },
           ]}
           onPress={() => {
-            setLocalisation("Salle de bain");
+            setLocalisation("Salle d'eau");
           }}
         >
           <Image
             source={require("../icons/bath.png")}
             style={{
-              width: 45,
-              height: 45,
-              tintColor: localisation === "Salle de bain" ? "#fff" : "#000000",
+              width: height < 800 ? 30 : 45,
+              height: height < 800 ? 30 : 45,
+              tintColor: localisation === "Salle d'eau" ? "#fff" : "#000000",
             }}
           />
           <Text
             style={{
-              color: localisation === "Salle de bain" ? "#fff" : "#000000",
+              color: localisation === "Salle d'eau" ? "#fff" : "#000000",
             }}
           >
-            Salle de bain
+            Salle d'eau
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -230,8 +230,8 @@ const MenuComponent = (props) => {
           <Image
             source={require("../icons/double-bed.png")}
             style={{
-              width: 45,
-              height: 45,
+              width: height < 800 ? 30 : 45,
+              height: height < 800 ? 30 : 45,
               tintColor: localisation === "Chambre" ? "#fff" : "#000000",
             }}
           />
@@ -254,8 +254,8 @@ const MenuComponent = (props) => {
           <Image
             source={require("../icons/kitchen-set.png")}
             style={{
-              width: 45,
-              height: 45,
+              width: height < 800 ? 30 : 45,
+              height: height < 800 ? 30 : 45,
               tintColor: localisation === "Cuisine" ? "#fff" : "#000000",
             }}
           />
@@ -278,8 +278,8 @@ const MenuComponent = (props) => {
           <Image
             source={require("../icons/toilet.png")}
             style={{
-              width: 45,
-              height: 45,
+              width: height < 800 ? 30 : 45,
+              height: height < 800 ? 30 : 45,
               tintColor: localisation === "Toilettes" ? "#fff" : "#000000",
             }}
           />
@@ -302,8 +302,8 @@ const MenuComponent = (props) => {
           <Image
             source={require("../icons/living-room.png")}
             style={{
-              width: 45,
-              height: 45,
+              width: height < 800 ? 30 : 45,
+              height: height < 800 ? 30 : 45,
               tintColor: localisation === "Salon" ? "#fff" : "#000000",
             }}
           />
@@ -314,9 +314,9 @@ const MenuComponent = (props) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <Pressable style={SubmitButton} onPress={() => addItem()}>
+      <TouchableOpacity style={SubmitButton} onPress={() => addItem()}>
         <Text style={TextInSubmit}>Ajouter</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -327,7 +327,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 20,
-    justifyContent: "center",
     alignItems: "center",
   },
 
@@ -343,17 +342,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
+    width:"100%",
+    justifyContent: "center",
+    padding:5,
   },
 
   localisationBtn: {
     borderWidth: 2,
-    width: 80,
-    height: 80,
+    width: height < 800 ? 75 : 80,
+    height: height < 800 ? 75 : 80,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 24,
-    marginTop: 24,
     borderRadius: 10,
+    margin:10
   },
 
   imgAndInput: {

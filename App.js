@@ -1,3 +1,4 @@
+import 'react-native-reanimated';
 import "react-native-gesture-handler";
 import { StyleSheet, Text, View } from "react-native";
 import HomeView from "./src/views/homeView";

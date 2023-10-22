@@ -16,11 +16,12 @@ const EmailCheckView = ({ navigation }) => {
       <View style={styles.paragraphe}>
         <Text style={styles.text}>
           Un email de vérification a été envoyé a l'adresse mail utilisée pour
-          créer un compte. Cliquez sur le lien contenu dans
-          l'email pour vérifier votre compte puis {""}
+          créer un compte. Cliquez sur le lien contenu dans l'email pour
+          vérifier votre compte puis. Vérifiez les spams si vous n'avez rien
+          reçu dans votre boîte principal ! {""}
           <Text
             style={{ color: ColorPalette.thinGreen }}
-            onPress={() => navigation.navigate('Log')}
+            onPress={() => navigation.navigate("Log")}
           >
             cliquez ici
           </Text>
