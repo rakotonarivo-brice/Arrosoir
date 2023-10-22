@@ -3,8 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
-  Alert,
+  TouchableOpacity,
   Image,
   Animated,
   Dimensions,
@@ -84,7 +83,7 @@ export default function HomeView({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Pressable>
+      <TouchableOpacity>
         <View style={styles.lang}>
           <Ionicons
             name="language-outline"
@@ -93,7 +92,7 @@ export default function HomeView({navigation}) {
             style={{ textAlign: "center" }}
           />
         </View>
-      </Pressable>
+      </TouchableOpacity>
       <Animated.FlatList
         data={Caroussel}
         renderItem={renderItem}
@@ -108,7 +107,7 @@ export default function HomeView({navigation}) {
         pagingEnabled
       />
       <Indicator scrollX={scrollX} />
-      <Pressable style={styles.button} onPress={() => navigation.navigate('Log')}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Log')}>
         <Text
           style={{
             color: "#fff",
@@ -128,7 +127,7 @@ export default function HomeView({navigation}) {
             style={{ textAlign: "center" }}
           />
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }

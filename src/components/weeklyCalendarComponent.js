@@ -123,11 +123,19 @@ const WeeklyCalendarComponent = (props) => {
                     backgroundColor: selected?.includes(day.dateFormat)
                       ? wateredDays?.includes(day.dateFormat)
                         ? ColorPalette.greenify
+                        : moment().format("YYYY-MM-DD") > day.dateFormat
+                        ? ColorPalette.error
                         : "#000000"
                       : ColorPalette.lightGrey,
                   },
                 ]}
-                onPress={() => console.log("day :", day.dateFormat)}
+                onPress={() =>
+                  console.log(
+                    "day :",
+                    day.dateFormat,
+                    moment().format("YYYY-MM-DD")
+                  )
+                }
               >
                 <Text
                   style={{
@@ -152,6 +160,8 @@ const WeeklyCalendarComponent = (props) => {
                         selected?.includes(day.dateFormat)
                           ? wateredDays?.includes(day.dateFormat)
                             ? ColorPalette.greenify
+                            : moment().format("YYYY-MM-DD") > day.dateFormat
+                            ? ColorPalette.error
                             : "#000000"
                           : "#fff"
                       }

@@ -3,7 +3,7 @@ import {
   Text,
   View,
   TextInput,
-  Pressable,
+  TouchableOpacity,
   Dimensions,
   Image,
 } from "react-native";
@@ -149,13 +149,13 @@ const RegisterView = ({ navigation }) => {
           onFocus={handleTyping}
           onBlur={handleTyping}
         />
-        <Pressable onPress={() => setPasswordVisible(!PasswordVisible)}>
+        <TouchableOpacity onPress={() => setPasswordVisible(!PasswordVisible)}>
           <Ionicons
             name={PasswordVisible ? "eye" : "eye-off"}
             size={20}
             color="black"
           />
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View style={InputContainer}>
         <TextInput
@@ -171,7 +171,7 @@ const RegisterView = ({ navigation }) => {
           onFocus={handleTyping}
           onBlur={handleTyping}
         />
-        <Pressable
+        <TouchableOpacity
           onPress={() => setCheckPasswordVisible(!checkPasswordVisible)}
         >
           <Ionicons
@@ -179,7 +179,7 @@ const RegisterView = ({ navigation }) => {
             size={20}
             color="black"
           />
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <Text
         style={{
@@ -190,13 +190,13 @@ const RegisterView = ({ navigation }) => {
         Vos mot de passe ne correspondent pas{" "}
       </Text>
 
-      <Pressable
+      <TouchableOpacity
         style={SubmitButton}
         onPress={handleSignUp}
         disabled={createUserButton}
       >
         <Text style={TextInSubmit}> Créer </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

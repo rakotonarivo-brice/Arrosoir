@@ -2,7 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
+  TouchableOpacity,
   TextInput,
   Image,
   Dimensions,
@@ -40,10 +40,15 @@ export default function LogView({ navigation }) {
       .then((userCredential) => {
         const user = userCredential.user;
 
-        onAuthStateChanged(auth, (user) => {
-          console.log(user);
-          navigation.navigate("Tabs");
-        });
+        if (user.emailVerified === true) {
+          onAuthStateChanged(auth, (user) => {
+            console.log(user);
+            navigation.navigate("Tabs");
+          });
+        } else
+          alert(
+            "Veuillez activer votre compte dans votre boite mail. Vérifiez vos spams."
+          );
       })
       .catch((error) => {
         if (error.code === "auth/wrong-password") {
@@ -95,32 +100,35 @@ export default function LogView({ navigation }) {
             onFocus={handleTyping}
             onBlur={handleTyping}
           />
-          <Pressable onPress={() => setPasswordVisible(!PasswordVisible)}>
+          <TouchableOpacity
+            onPress={() => setPasswordVisible(!PasswordVisible)}
+          >
             <Ionicons
               name={PasswordVisible ? "eye" : "eye-off"}
               size={20}
               color="black"
             />
-          </Pressable>
+          </TouchableOpacity>
         </View>
-        <Pressable>
-          <Text style={styles.forgot}>Mot de passe oublié?</Text>
-        </Pressable>
-        <Pressable style={SubmitButton} onPress={handleSignIn}>
-          <Text style={TextInSubmit}>Se connecter</Text>
-        </Pressable>
-        <View style={styles.createAccount}>
-          <Text>Pas encore de compte?</Text>
-          <Pressable onPress={() => navigation.navigate("Reg")}>
-            <Text
-              style={{
-                color: ColorPalette.thinGreen,
-              }}
-            >
-              Créer un compte
-            </Text>
-          </Pressable>
-        </View>
+      </View>
+
+      <TouchableOpacity>
+        <Text style={styles.forgot}>Mot de passe oublié?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={SubmitButton} onPress={handleSignIn}>
+        <Text style={TextInSubmit}>Se connecter</Text>
+      </TouchableOpacity>
+      <View style={styles.createAccount}>
+        <Text>Pas encore de compte?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Reg")}>
+          <Text
+            style={{
+              color: ColorPalette.thinGreen,
+            }}
+          >
+            Créer un compte
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

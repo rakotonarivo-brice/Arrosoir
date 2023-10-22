@@ -144,7 +144,7 @@ const CardComponent = (props) => {
           <Text style={styles.cardName}>{props.plantName}</Text>
           <View style={styles.category}>
             <View style={styles.subCategory}>
-              <Image source={iconPath()} style={{ width: 45, height: 45 }} />
+              <Image source={iconPath()} style={{ width: "45%", height: "50%" }} />
               <Text style={styles.subNames}>Localisation</Text>
             </View>
             <View style={styles.subCategory}>
@@ -188,10 +188,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardName: {
-    fontSize: 22,
+    fontSize: width/15,
     fontWeight: "bold",
     position: "absolute",
-    bottom: 110,
+    bottom: "75%",
     left: 20,
   },
   settings: {
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
 
   cardImage: {
     width: "100%",
-    height: "57%",
+    height: height/4.5,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },

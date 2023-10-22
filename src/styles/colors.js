@@ -18,5 +18,4 @@ export const ColorPalette ={
     primaryButton:"#344E41",
     secondaryButton: "#ffffff",
     accent: "#A3B18A",
-    
 }
