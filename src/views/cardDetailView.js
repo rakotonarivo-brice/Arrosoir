@@ -116,18 +116,18 @@ const CardDetailView = ({ route, navigation: { goBack } }) => {
 
   const iconPath = () => {
     if (localisation === "Extérieur") {
-      return require("../icons/park.png");
+      return require("../assets/icons/park.png");
     } else if (localisation === "Salle de bain") {
-      return require("../icons/bath.png");
+      return require("../assets/icons/bath.png");
     } else if (localisation === "Chambre") {
-      return require("../icons/double-bed.png");
+      return require("../assets/icons/double-bed.png");
     } else if (localisation === "Cuisine") {
-      return require("../icons/kitchen-set.png");
+      return require("../assets/icons/kitchen-set.png");
     } else if (localisation === "Toilettes") {
-      return require("../icons/toilet.png");
+      return require("../assets/icons/toilet.png");
     } else if (localisation === "Salon") {
-      return require("../icons/living-room.png");
-    } else return require("../icons/living-room.png");
+      return require("../assets/icons/living-room.png");
+    } else return require("../assets/icons/living-room.png");
   };
 
   const bottomSheetModalRef = useRef(null);

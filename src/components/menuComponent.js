@@ -174,7 +174,7 @@ const MenuComponent = (props) => {
           }}
         >
           <Image
-            source={require("../icons/park.png")}
+            source={require("../assets/icons/park.png")}
             style={{
               width: height < 800 ? 30 : 45,
               height: height < 800 ? 30 : 45,
@@ -202,7 +202,7 @@ const MenuComponent = (props) => {
           }}
         >
           <Image
-            source={require("../icons/bath.png")}
+            source={require("../assets/icons/bath.png")}
             style={{
               width: height < 800 ? 30 : 45,
               height: height < 800 ? 30 : 45,
@@ -228,7 +228,7 @@ const MenuComponent = (props) => {
           onPress={() => setLocalisation("Chambre")}
         >
           <Image
-            source={require("../icons/double-bed.png")}
+            source={require("../assets/icons/double-bed.png")}
             style={{
               width: height < 800 ? 30 : 45,
               height: height < 800 ? 30 : 45,
@@ -252,7 +252,7 @@ const MenuComponent = (props) => {
           onPress={() => setLocalisation("Cuisine")}
         >
           <Image
-            source={require("../icons/kitchen-set.png")}
+            source={require("../assets/icons/kitchen-set.png")}
             style={{
               width: height < 800 ? 30 : 45,
               height: height < 800 ? 30 : 45,
@@ -276,7 +276,7 @@ const MenuComponent = (props) => {
           onPress={() => setLocalisation("Toilettes")}
         >
           <Image
-            source={require("../icons/toilet.png")}
+            source={require("../assets/icons/toilet.png")}
             style={{
               width: height < 800 ? 30 : 45,
               height: height < 800 ? 30 : 45,
@@ -300,7 +300,7 @@ const MenuComponent = (props) => {
           onPress={() => setLocalisation("Salon")}
         >
           <Image
-            source={require("../icons/living-room.png")}
+            source={require("../assets/icons/living-room.png")}
             style={{
               width: height < 800 ? 30 : 45,
               height: height < 800 ? 30 : 45,

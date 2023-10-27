@@ -10,6 +10,7 @@ import cardDetailView from "./src/views/cardDetailView";
 import ProfileView from "./src/views/profileView";
 import SettingsView from "./src/views/settingsView";
 import ArticlesView from "./src/views/articlesView";
+import SplashScreenView from "./src/views/splashScreenView";
 
 import { ColorPalette } from "./src/styles/colors";
 import { NavigationContainer } from "@react-navigation/native";
@@ -130,6 +131,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreenView}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Home"
           component={HomeView}
