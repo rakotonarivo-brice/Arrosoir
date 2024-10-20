@@ -13,7 +13,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSBluetoothAlwaysUsageDescription": "L'application a besoin d'accéder au Bluetooth pour scanner les périphériques",
+        "NSBluetoothPeripheralUsageDescription": "L'application a besoin d'accéder au Bluetooth pour scanner les périphériques",
+        "NSLocationWhenInUseUsageDescription": "Le Bluetooth nécessite un accès à votre position pour trouver les périphériques BLE à proximité"
+      },
+      "bundleIdentifier": "com.berehovenko.Arrosoir"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,6 +29,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "672c5a63-2f87-443f-8d2f-cd876c93247f"
+      }
     }
   }
 }

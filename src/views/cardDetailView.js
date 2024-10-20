@@ -23,7 +23,8 @@ import { db } from "../../firebase-config";
 import { getAuth } from "firebase/auth";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { fontCardTitle } from "../styles/fonts";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView , GestureHandlerRootView} from "react-native-gesture-handler";
+
 
 const { width, height } = Dimensions.get("screen");
 
@@ -233,418 +234,448 @@ const CardDetailView = ({ route, navigation: { goBack } }) => {
   }, [wateredDays]);
 
   return (
-    <View style={styles.container}>
-      <BottomSheetModalProvider>
-        <TouchableOpacity
-          onPress={() => goBack()}
-          style={{ position: "absolute", top: 60, left: 10 }}
-        >
-          <Ionicons
-            name={"arrow-back-circle"}
-            size={60}
-            style={{
-              color: "#fff",
-            }}
-          />
-        </TouchableOpacity>
-        <Image source={{ uri: imageUrl }} style={styles.cardImage} />
-        <View style={styles.topCard}>
-          <Text
-            style={[
-              styles.infoTitle,
-              { textAlign: "center", margin: 10, fontSize: 30 },
-            ]}
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <BottomSheetModalProvider>
+          <TouchableOpacity
+            onPress={() => goBack()}
+            style={{ position: "absolute", top: 60, left: 10 }}
           >
-            {plantName}
-          </Text>
-          <View
-            style={{
-              width: "95%",
-              backgroundColor: "#fff",
-              borderRadius: 25,
-              padding: 10,
-            }}
-          >
-            <Text style={[styles.bottomCardTitle, { marginBottom: 5 }]}>
-              Fiche de la plante
+            <Ionicons
+              name={"arrow-back-circle"}
+              size={60}
+              style={{
+                color: "#fff",
+              }}
+            />
+          </TouchableOpacity>
+          <Image source={{ uri: imageUrl }} style={styles.cardImage} />
+          <View style={styles.topCard}>
+            <Text
+              style={[
+                styles.infoTitle,
+                { textAlign: "center", margin: 10, fontSize: 30 },
+              ]}
+            >
+              {plantName}
             </Text>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-evenly",
+                width: "95%",
+                backgroundColor: "#fff",
+                borderRadius: 25,
+                padding: 10,
               }}
             >
-              <TouchableOpacity>
-                <Text>Luminosité</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity>
-                <Text>Température</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity>
-                <Text>trois</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View
-            style={{
-              width: "95%",
-              backgroundColor: "#fff",
-              borderRadius: 25,
-              padding: 10,
-            }}
-          >
-            <Text style={[styles.bottomCardTitle, { marginBottom: 5 }]}>
-              Etat global du planning
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  [setShowModal(!showModal), setModalContent("WateredDays")];
-                }}
-                style={[
-                  styles.cardInfo,
-                  { backgroundColor: ColorPalette.greenify },
-                ]}
-              >
-                <Text
-                  style={[
-                    fontCardTitle,
-                    {
-                      paddingTop: 0,
-                      textAlign: "center",
-                      margin: 10,
-                      lineHeight: 26,
-                      color: "#fff",
-                    },
-                  ]}
-                >
-                  Vous l'avez arrosé{"  "}
-                  <Text style={{ fontSize: 18 }}>
-                    {sortedWateredDay.length - 1}{" "}
-                  </Text>
-                  <Text> fois</Text>
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => {
-                  [
-                    setShowModal(!showModal),
-                    setModalContent("NextPlannedDays"),
-                  ];
-                }}
-                style={[styles.cardInfo, { backgroundColor: "#000000" }]}
-              >
-                <Text
-                  style={[
-                    fontCardTitle,
-                    {
-                      paddingTop: 0,
-                      textAlign: "center",
-                      margin: 10,
-                      lineHeight: 26,
-                      color: "#fff",
-                    },
-                  ]}
-                >
-                  Vous avez{"  "}
-                  <Text style={{ fontSize: 18 }}>
-                    {sortedNextPlannedDays.length}
-                  </Text>
-                  <Text> arrosages prévus</Text>
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => {
-                  [
-                    setShowModal(!showModal),
-                    setModalContent("ForgottenPlannedDays"),
-                  ];
-                }}
-                style={[
-                  styles.cardInfo,
-                  { backgroundColor: ColorPalette.error },
-                ]}
-              >
-                <Text
-                  style={[
-                    fontCardTitle,
-                    {
-                      paddingTop: 0,
-                      textAlign: "center",
-                      margin: 10,
-                      lineHeight: 26,
-                      color: "#fff",
-                    },
-                  ]}
-                >
-                  Vous avez oublié{"  "}
-                  <Text style={{ fontSize: 18 }}>
-                    {forgottenPlannedDays.length}
-                  </Text>
-                  <Text> arrosages</Text>
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <Modal animationType={"slide"} transparent={true} visible={showModal}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.infoTitle}>
-                  {modalContent === "WateredDays"
-                    ? "Arrosage effectué"
-                    : modalContent === "NextPlannedDays"
-                    ? "Arrosages en attente"
-                    : modalContent === "ForgottenPlannedDays"
-                    ? "Arrosages oubliés"
-                    : ""}
-                </Text>
-                {modalContent === "WateredDays" ? (
-                  <ScrollView>
-                    {sortedWateredDay.map((item) => {
-                      return (
-                        <View
-                          key={item}
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            display: item ? "block" : "none",
-                            marginTop: 15,
-                          }}
-                        >
-                          <Ionicons
-                            name={"ellipse"}
-                            size={10}
-                            style={{ marginRight: 10 }}
-                          />
-
-                          <Text>
-                            {moment(item, "YYYY-MM-DD").format("DD MMM. YYYY")}
-                          </Text>
-                        </View>
-                      );
-                    })}
-                  </ScrollView>
-                ) : modalContent === "NextPlannedDays" ? (
-                  <ScrollView>
-                    {sortedNextPlannedDays.map((item) => {
-                      return (
-                        <View
-                          key={item}
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            display: item ? "block" : "none",
-                            marginTop: 15,
-                          }}
-                        >
-                          <Ionicons
-                            name={"ellipse"}
-                            size={10}
-                            style={{ marginRight: 10 }}
-                          />
-
-                          <Text>
-                            {moment(item, "YYYY-MM-DD").format("DD MMM. YYYY")}
-                          </Text>
-                        </View>
-                      );
-                    })}
-                  </ScrollView>
-                ) : modalContent === "ForgottenPlannedDays" ? (
-                  <ScrollView>
-                    {forgottenPlannedDays.map((item) => {
-                      return (
-                        <View
-                          key={item}
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            display: item ? "block" : "none",
-                            marginTop: 15,
-                          }}
-                        >
-                          <Ionicons
-                            name={"ellipse"}
-                            size={10}
-                            style={{ marginRight: 10 }}
-                          />
-
-                          <Text>
-                            {moment(item, "YYYY-MM-DD").format("DD MMM. YYYY")}
-                          </Text>
-                        </View>
-                      );
-                    })}
-                  </ScrollView>
-                ) : (
-                  ""
-                )}
-                <TouchableOpacity
-                  style={{ position: "absolute", top: 15, right: 15 }}
-                  onPress={() => {
-                    setShowModal(!showModal);
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: ColorPalette.error,
-                      height: 28,
-                      width: 28,
-                      borderRadius: 24,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Ionicons name={"close"} size={18} color="#fff" />
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-
-          <View style={styles.bottomCard}>
-            <View>
+              <Text style={[styles.bottomCardTitle, { marginBottom: 5 }]}>
+                Fiche de la plante
+              </Text>
               <View
                 style={{
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  justifyContent: "space-evenly",
                 }}
               >
-                <Text style={styles.bottomCardTitle}>
-                  Planning de la semaine{" "}
-                </Text>
-                <TouchableOpacity onPress={handlePresentModal}>
-                  <Ionicons
-                    name={"calendar-outline"}
-                    size={height < 800 ? 18 : 23}
-                    style={{ marginRight: 20 }}
-                  />
+                <TouchableOpacity>
+                  <Text>Luminosité</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                  <Text>Température</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                  <Text>trois</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={{ color: ColorPalette.textGrey, marginLeft: 20 }}>
-                Nous sommes le {moment().format("DD.MM.YYYY")}
-              </Text>
             </View>
-            <WeeklyCalendarComponent
-              firstDate={weekStart}
-              lastDate={endOfWeek}
-              id={id}
-            />
-          </View>
-        </View>
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={0}
-          snapPoints={snapPoint}
-          style={styles.modalStyle}
-          backgroundStyle={{
-            backgroundColor: ColorPalette.dark,
-          }}
-        >
-          <View>
-            <Calendar
-              theme={{
-                calendarBackground: ColorPalette.dark,
-                dayTextColor: "#fff",
-                monthTextColor: "#fff",
+
+            <View
+              style={{
+                width: "95%",
+                backgroundColor: "#fff",
+                borderRadius: 25,
+                padding: 10,
               }}
-              hideExtraDays={true}
-              firstDay={1}
-              dayComponent={({ date }) => {
-                return (
+            >
+              <Text style={[styles.bottomCardTitle, { marginBottom: 5 }]}>
+                Etat global du planning
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    [setShowModal(!showModal), setModalContent("WateredDays")];
+                  }}
+                  style={[
+                    styles.cardInfo,
+                    { backgroundColor: ColorPalette.greenify },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      fontCardTitle,
+                      {
+                        paddingTop: 0,
+                        textAlign: "center",
+                        margin: 10,
+                        lineHeight: 26,
+                        color: "#fff",
+                      },
+                    ]}
+                  >
+                    Vous l'avez arrosé{"  "}
+                    <Text style={{ fontSize: 18 }}>
+                      {sortedWateredDay.length - 1}{" "}
+                    </Text>
+                    <Text> fois</Text>
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    [
+                      setShowModal(!showModal),
+                      setModalContent("NextPlannedDays"),
+                    ];
+                  }}
+                  style={[styles.cardInfo, { backgroundColor: "#000000" }]}
+                >
+                  <Text
+                    style={[
+                      fontCardTitle,
+                      {
+                        paddingTop: 0,
+                        textAlign: "center",
+                        margin: 10,
+                        lineHeight: 26,
+                        color: "#fff",
+                      },
+                    ]}
+                  >
+                    Vous avez{"  "}
+                    <Text style={{ fontSize: 18 }}>
+                      {sortedNextPlannedDays.length}
+                    </Text>
+                    <Text> arrosages prévus</Text>
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    [
+                      setShowModal(!showModal),
+                      setModalContent("ForgottenPlannedDays"),
+                    ];
+                  }}
+                  style={[
+                    styles.cardInfo,
+                    { backgroundColor: ColorPalette.error },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      fontCardTitle,
+                      {
+                        paddingTop: 0,
+                        textAlign: "center",
+                        margin: 10,
+                        lineHeight: 26,
+                        color: "#fff",
+                      },
+                    ]}
+                  >
+                    Vous avez oublié{"  "}
+                    <Text style={{ fontSize: 18 }}>
+                      {forgottenPlannedDays.length}
+                    </Text>
+                    <Text> arrosages</Text>
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <Modal animationType={"slide"} transparent={true} visible={showModal}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.infoTitle}>
+                    {modalContent === "WateredDays"
+                      ? "Arrosage effectué"
+                      : modalContent === "NextPlannedDays"
+                        ? "Arrosages en attente"
+                        : modalContent === "ForgottenPlannedDays"
+                          ? "Arrosages oubliés"
+                          : ""}
+                  </Text>
+                  {modalContent === "WateredDays" ? (
+                    <ScrollView>
+                      {sortedWateredDay.map((item) => {
+                        return (
+                          <View
+                            key={item}
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              display: item ? "block" : "none",
+                              marginTop: 15,
+                            }}
+                          >
+                            <Ionicons
+                              name={"ellipse"}
+                              size={10}
+                              style={{ marginRight: 10 }}
+                            />
+
+                            <Text>
+                              {moment(item, "YYYY-MM-DD").format("DD MMM. YYYY")}
+                            </Text>
+                          </View>
+                        );
+                      })}
+                    </ScrollView>
+                  ) : modalContent === "NextPlannedDays" ? (
+                    <ScrollView>
+                      {sortedNextPlannedDays.map((item) => {
+                        return (
+                          <View
+                            key={item}
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              display: item ? "block" : "none",
+                              marginTop: 15,
+                            }}
+                          >
+                            <Ionicons
+                              name={"ellipse"}
+                              size={10}
+                              style={{ marginRight: 10 }}
+                            />
+
+                            <Text>
+                              {moment(item, "YYYY-MM-DD").format("DD MMM. YYYY")}
+                            </Text>
+                          </View>
+                        );
+                      })}
+                    </ScrollView>
+                  ) : modalContent === "ForgottenPlannedDays" ? (
+                    <ScrollView>
+                      {forgottenPlannedDays.map((item) => {
+                        return (
+                          <View
+                            key={item}
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              display: item ? "block" : "none",
+                              marginTop: 15,
+                            }}
+                          >
+                            <Ionicons
+                              name={"ellipse"}
+                              size={10}
+                              style={{ marginRight: 10 }}
+                            />
+
+                            <Text>
+                              {moment(item, "YYYY-MM-DD").format("DD MMM. YYYY")}
+                            </Text>
+                          </View>
+                        );
+                      })}
+                    </ScrollView>
+                  ) : (
+                    ""
+                  )}
                   <TouchableOpacity
-                    onPress={async () => setOnSelectedDay(date.dateString)}
-                    style={{
-                      backgroundColor: selected?.includes(date.dateString)
-                        ? wateredDays?.includes(date.dateString)
-                          ? ColorPalette.greenify //color of the background of a watered day
-                          : sortedNextPlannedDays?.includes(date.dateString)
-                          ? "#fff" //color of a selected day
-                          : ColorPalette.error //color of a deprecated selected day
-                        : ColorPalette.dark, // color of a not selected && watered day
-                      borderRadius:
-                        selected?.includes(date.dateString) ||
-                        onSelectedDay.includes(date.dateString)
-                          ? 15
-                          : 0,
-                      borderWidth: onSelectedDay.includes(date.dateString)
-                        ? height < 800
-                          ? 1
-                          : 2
-                        : 0,
-                      borderColor: selected?.includes(date.dateString)
-                        ? wateredDays?.includes(date.dateString)
-                          ? "#fff" //color of the border of a watered day
-                          : sortedNextPlannedDays?.includes(date.dateString)
-                          ? "#00000" //color of the border a deprecated selected day
-                          : "#fff" // color of the border of a selected day
-                        : "#fff", // color of a not selected && not watered day
+                    style={{ position: "absolute", top: 15, right: 15 }}
+                    onPress={() => {
+                      setShowModal(!showModal);
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        textAlign: "center",
-                        color: selected?.includes(date.dateString)
-                          ? wateredDays?.includes(date.dateString)
-                            ? "#fff" //color of the text of a watered day
-                            : sortedNextPlannedDays?.includes(date.dateString)
-                            ? "#000000" //color of the text of a selected day
-                            : "#fff" // color of the text of a deprecated selected day
-                          : "#fff", //default color of the text of a day
-                        fontSize: 18,
-                        marginTop: height < 800 ? 2 : 4,
+                        backgroundColor: ColorPalette.error,
+                        height: 28,
+                        width: 28,
+                        borderRadius: 24,
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
                     >
-                      {date.day}
-                    </Text>
-                    {selected?.includes(date.dateString) ||
-                    onSelectedDay.includes(date.dateString) ? (
-                      <Ionicons
-                        name={"water-outline"}
-                        size={height < 800 ? 18 : 23}
-                        color={
-                          selected?.includes(date.dateString)
-                            ? wateredDays?.includes(date.dateString)
-                              ? "#fff" // color of the icon of watered day
-                              : sortedNextPlannedDays?.includes(date.dateString)
-                              ? "#000000" //color of the icon of a selected day
-                              : "#fff" //color of the icon of a deprecated selected day
-                            : "#fff" // color of the icon of the clicked day
-                        }
-                        style={{ margin: 6 }}
-                      />
-                    ) : (
-                      <Ionicons
-                        name={"water-outline"}
-                        size={height < 800 ? 18 : 23}
-                        color={ColorPalette.dark}
-                      />
-                    )}
+                      <Ionicons name={"close"} size={18} color="#fff" />
+                    </View>
                   </TouchableOpacity>
-                );
-              }}
-            />
+                </View>
+              </View>
+            </Modal>
+
+            <View style={styles.bottomCard}>
+              <View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text style={styles.bottomCardTitle}>
+                    Planning de la semaine{" "}
+                  </Text>
+                  <TouchableOpacity onPress={handlePresentModal}>
+                    <Ionicons
+                      name={"calendar-outline"}
+                      size={height < 800 ? 18 : 23}
+                      style={{ marginRight: 20 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <Text style={{ color: ColorPalette.textGrey, marginLeft: 20 }}>
+                  Nous sommes le {moment().format("DD.MM.YYYY")}
+                </Text>
+              </View>
+              <WeeklyCalendarComponent
+                firstDate={weekStart}
+                lastDate={endOfWeek}
+                id={id}
+              />
+            </View>
           </View>
-          <View
-            style={{
-              flexDirection: "column",
-              position: "absolute",
-              bottom: 20,
-              right: 20,
+          <BottomSheetModal
+            ref={bottomSheetModalRef}
+            index={0}
+            snapPoints={snapPoint}
+            style={styles.modalStyle}
+            backgroundStyle={{
+              backgroundColor: ColorPalette.dark,
             }}
           >
             <View>
+              <Calendar
+                theme={{
+                  calendarBackground: ColorPalette.dark,
+                  dayTextColor: "#fff",
+                  monthTextColor: "#fff",
+                }}
+                hideExtraDays={true}
+                firstDay={1}
+                dayComponent={({ date }) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={async () => setOnSelectedDay(date.dateString)}
+                      style={{
+                        backgroundColor: selected?.includes(date.dateString)
+                          ? wateredDays?.includes(date.dateString)
+                            ? ColorPalette.greenify //color of the background of a watered day
+                            : sortedNextPlannedDays?.includes(date.dateString)
+                              ? "#fff" //color of a selected day
+                              : ColorPalette.error //color of a deprecated selected day
+                          : ColorPalette.dark, // color of a not selected && watered day
+                        borderRadius:
+                          selected?.includes(date.dateString) ||
+                            onSelectedDay.includes(date.dateString)
+                            ? 15
+                            : 0,
+                        borderWidth: onSelectedDay.includes(date.dateString)
+                          ? height < 800
+                            ? 1
+                            : 2
+                          : 0,
+                        borderColor: selected?.includes(date.dateString)
+                          ? wateredDays?.includes(date.dateString)
+                            ? "#fff" //color of the border of a watered day
+                            : sortedNextPlannedDays?.includes(date.dateString)
+                              ? "#00000" //color of the border a deprecated selected day
+                              : "#fff" // color of the border of a selected day
+                          : "#fff", // color of a not selected && not watered day
+                      }}
+                    >
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          color: selected?.includes(date.dateString)
+                            ? wateredDays?.includes(date.dateString)
+                              ? "#fff" //color of the text of a watered day
+                              : sortedNextPlannedDays?.includes(date.dateString)
+                                ? "#000000" //color of the text of a selected day
+                                : "#fff" // color of the text of a deprecated selected day
+                            : "#fff", //default color of the text of a day
+                          fontSize: 18,
+                          marginTop: height < 800 ? 2 : 4,
+                        }}
+                      >
+                        {date.day}
+                      </Text>
+                      {selected?.includes(date.dateString) ||
+                        onSelectedDay.includes(date.dateString) ? (
+                        <Ionicons
+                          name={"water-outline"}
+                          size={height < 800 ? 18 : 23}
+                          color={
+                            selected?.includes(date.dateString)
+                              ? wateredDays?.includes(date.dateString)
+                                ? "#fff" // color of the icon of watered day
+                                : sortedNextPlannedDays?.includes(date.dateString)
+                                  ? "#000000" //color of the icon of a selected day
+                                  : "#fff" //color of the icon of a deprecated selected day
+                              : "#fff" // color of the icon of the clicked day
+                          }
+                          style={{ margin: 6 }}
+                        />
+                      ) : (
+                        <Ionicons
+                          name={"water-outline"}
+                          size={height < 800 ? 18 : 23}
+                          color={ColorPalette.dark}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: "column",
+                position: "absolute",
+                bottom: 20,
+                right: 20,
+              }}
+            >
+              <View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    textAlign: "center",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <Text style={{ color: "#fff", fontSize: 18 }}>Arrosé</Text>
+
+                  <View
+                    style={{
+                      width: height < 800 ? 40 : 50,
+                      height: height < 800 ? 40 : 50,
+                      borderRadius: height < 800 ? 13 : 20,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: ColorPalette.greenify,
+                      margin: height < 800 ? 5 : 10,
+                    }}
+                  >
+                    <Ionicons
+                      name={"water-outline"}
+                      size={height < 800 ? 18 : 23}
+                      color="#fff"
+                    />
+                  </View>
+                </View>
+              </View>
               <View
                 style={{
                   flexDirection: "row",
@@ -653,8 +684,9 @@ const CardDetailView = ({ route, navigation: { goBack } }) => {
                   justifyContent: "flex-end",
                 }}
               >
-                <Text style={{ color: "#fff", fontSize: 18 }}>Arrosé</Text>
-
+                <Text style={{ color: "#fff", fontSize: 18 }}>
+                  Arrosage planifié
+                </Text>
                 <View
                   style={{
                     width: height < 800 ? 40 : 50,
@@ -662,114 +694,85 @@ const CardDetailView = ({ route, navigation: { goBack } }) => {
                     borderRadius: height < 800 ? 13 : 20,
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundColor: ColorPalette.greenify,
+                    backgroundColor: "#fff",
                     margin: height < 800 ? 5 : 10,
                   }}
                 >
                   <Ionicons
                     name={"water-outline"}
                     size={height < 800 ? 18 : 23}
-                    color="#fff"
+                    color="#000000"
                   />
                 </View>
               </View>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                textAlign: "center",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 18 }}>
-                Arrosage planifié
-              </Text>
               <View
                 style={{
-                  width: height < 800 ? 40 : 50,
-                  height: height < 800 ? 40 : 50,
-                  borderRadius: height < 800 ? 13 : 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                  margin: height < 800 ? 5 : 10,
+                  flexDirection: height < 800 ? "row" : "column",
                 }}
               >
-                <Ionicons
-                  name={"water-outline"}
-                  size={height < 800 ? 18 : 23}
-                  color="#000000"
-                />
+                {onSelectedDay.length !== 0 ? (
+                  <TouchableOpacity
+                    style={[
+                      SubmitButton,
+                      {
+                        backgroundColor: wateredDays?.includes(onSelectedDay)
+                          ? "#fff"
+                          : ColorPalette.greenify,
+                        height: height < 800 ? 50 : 60,
+                        width: height < 800 ? 160 : 300,
+                        margin: height < 800 ? 10 : 0,
+                      },
+                    ]}
+                    onPress={async () => await handleDatesStates()}
+                  >
+                    <Text
+                      style={{
+                        color: wateredDays?.includes(onSelectedDay)
+                          ? "#000000"
+                          : "#fff",
+                        fontSize: 18,
+                      }}
+                    >
+                      {" "}
+                      {selected?.includes(onSelectedDay)
+                        ? wateredDays?.includes(onSelectedDay)
+                          ? height < 800
+                            ? "Je n'ai pas arrosé"
+                            : "Je n'ai pas arrosé ce jour-là"
+                          : height < 800
+                            ? "J'ai arrosé"
+                            : "J'ai arrosé ce jour-là"
+                        : "Planifier un arrosage"}
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  ""
+                )}
+                {selected?.includes(onSelectedDay) &&
+                  !wateredDays?.includes(onSelectedDay) ? (
+                  <TouchableOpacity
+                    onPress={() => deleteFromAllState(onSelectedDay)}
+                    style={[
+                      SubmitButton,
+                      {
+                        backgroundColor: ColorPalette.error,
+                        justifyContent: "center",
+                        height: height < 800 ? 50 : 60,
+                        width: height < 800 ? 160 : 300,
+                      },
+                    ]}
+                  >
+                    <Text style={TextInSubmit}> Supprimer</Text>
+                  </TouchableOpacity>
+                ) : (
+                  ""
+                )}
               </View>
             </View>
-            <View
-              style={{
-                flexDirection: height < 800 ? "row" : "column",
-              }}
-            >
-              {onSelectedDay.length !== 0 ? (
-                <TouchableOpacity
-                  style={[
-                    SubmitButton,
-                    {
-                      backgroundColor: wateredDays?.includes(onSelectedDay)
-                        ? "#fff"
-                        : ColorPalette.greenify,
-                      height: height < 800 ? 50 : 60,
-                      width: height < 800 ? 160 : 300,
-                      margin: height < 800 ? 10 : 0,
-                    },
-                  ]}
-                  onPress={async () => await handleDatesStates()}
-                >
-                  <Text
-                    style={{
-                      color: wateredDays?.includes(onSelectedDay)
-                        ? "#000000"
-                        : "#fff",
-                      fontSize: 18,
-                    }}
-                  >
-                    {" "}
-                    {selected?.includes(onSelectedDay)
-                      ? wateredDays?.includes(onSelectedDay)
-                        ? height < 800
-                          ? "Je n'ai pas arrosé"
-                          : "Je n'ai pas arrosé ce jour-là"
-                        : height < 800
-                        ? "J'ai arrosé"
-                        : "J'ai arrosé ce jour-là"
-                      : "Planifier un arrosage"}
-                  </Text>
-                </TouchableOpacity>
-              ) : (
-                ""
-              )}
-              {selected?.includes(onSelectedDay) &&
-              !wateredDays?.includes(onSelectedDay) ? (
-                <TouchableOpacity
-                  onPress={() => deleteFromAllState(onSelectedDay)}
-                  style={[
-                    SubmitButton,
-                    {
-                      backgroundColor: ColorPalette.error,
-                      justifyContent: "center",
-                      height: height < 800 ? 50 : 60,
-                      width: height < 800 ? 160 : 300,
-                    },
-                  ]}
-                >
-                  <Text style={TextInSubmit}> Supprimer</Text>
-                </TouchableOpacity>
-              ) : (
-                ""
-              )}
-            </View>
-          </View>
-        </BottomSheetModal>
-      </BottomSheetModalProvider>
-    </View>
+          </BottomSheetModal>
+        </BottomSheetModalProvider>
+      </View>
+    </GestureHandlerRootView>
   );
 };
 

@@ -43,6 +43,13 @@ export default function LogView({ navigation }) {
         if (user.emailVerified === true) {
           onAuthStateChanged(auth, (user) => {
             console.log(user);
+            user.getIdToken().then((idToken) => {
+              console.log('ID Token:', idToken);
+            });
+    
+            // Récupérer et afficher le Refresh Token
+            console.log('Refresh Token:', userCredential.user.stsTokenManager.refreshToken);
+    
             navigation.navigate("Tabs");
           });
         } else

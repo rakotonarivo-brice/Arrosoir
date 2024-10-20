@@ -1,5 +1,6 @@
 import 'react-native-reanimated';
 import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StyleSheet, Text, View } from "react-native";
 import HomeView from "./src/views/homeView";
 import LogView from "./src/views/logView";
@@ -11,6 +12,7 @@ import ProfileView from "./src/views/profileView";
 import SettingsView from "./src/views/settingsView";
 import ArticlesView from "./src/views/articlesView";
 import SplashScreenView from "./src/views/splashScreenView";
+import ConnectToModuleView from './src/views/connectToModuleView';
 
 import { ColorPalette } from "./src/styles/colors";
 import { NavigationContainer } from "@react-navigation/native";
@@ -23,107 +25,135 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
-      <Tab.Screen
-        name="Home"
-        component={DashboardView}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Ionicons
-                name={"home"}
-                size={25}
-                color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
-              />
-              <Text
-                style={{
-                  color: focused
-                    ? ColorPalette.greenify
-                    : ColorPalette.textGrey,
-                }}
-              >
-                Accueil
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Articles"
-        component={ArticlesView}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Ionicons
-                name={"reader"}
-                size={25}
-                color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
-              />
-              <Text
-                style={{
-                  color: focused
-                    ? ColorPalette.greenify
-                    : ColorPalette.textGrey,
-                }}
-              >
-                Articles
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileView}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Ionicons
-                name={"person-circle"}
-                size={25}
-                color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
-              />
-              <Text
-                style={{
-                  color: focused
-                    ? ColorPalette.greenify
-                    : ColorPalette.textGrey,
-                }}
-              >
-                Profile
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={SettingsView}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Ionicons
-                name={"cog"}
-                size={25}
-                color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
-              />
-              <Text
-                style={{
-                  color: focused
-                    ? ColorPalette.greenify
-                    : ColorPalette.textGrey,
-                }}
-              >
-                Paramètres
-              </Text>
-            </View>
-          ),
-        }}
-      />
-    </Tab.Navigator>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+
+      <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
+        <Tab.Screen
+          name="Home"
+          component={DashboardView}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Ionicons
+                  name={"home"}
+                  size={25}
+                  color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
+                />
+                <Text
+                  style={{
+                    color: focused
+                      ? ColorPalette.greenify
+                      : ColorPalette.textGrey,
+                  }}
+                >
+                  Accueil
+                </Text>
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Articles"
+          component={ArticlesView}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Ionicons
+                  name={"reader"}
+                  size={25}
+                  color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
+                />
+                <Text
+                  style={{
+                    color: focused
+                      ? ColorPalette.greenify
+                      : ColorPalette.textGrey,
+                  }}
+                >
+                  Articles
+                </Text>
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileView}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Ionicons
+                  name={"person-circle"}
+                  size={25}
+                  color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
+                />
+                <Text
+                  style={{
+                    color: focused
+                      ? ColorPalette.greenify
+                      : ColorPalette.textGrey,
+                  }}
+                >
+                  Profile
+                </Text>
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsView}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Ionicons
+                  name={"cog"}
+                  size={25}
+                  color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
+                />
+                <Text
+                  style={{
+                    color: focused
+                      ? ColorPalette.greenify
+                      : ColorPalette.textGrey,
+                  }}
+                >
+                  Paramètres
+                </Text>
+              </View>
+            ),
+          }}
+        />
+
+<Tab.Screen
+          name="connectToModule"
+          component={ConnectToModuleView}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Ionicons
+                  name={"cog"}
+                  size={25}
+                  color={focused ? ColorPalette.greenify : ColorPalette.textGrey}
+                />
+                <Text
+                  style={{
+                    color: focused
+                      ? ColorPalette.greenify
+                      : ColorPalette.textGrey,
+                  }}
+                >
+                  ConnectToModuleView
+                </Text>
+              </View>
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </GestureHandlerRootView>
   );
 }
 
@@ -166,6 +196,7 @@ export default function App() {
           component={cardDetailView}
           options={{ headerShown: false }}
         />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
